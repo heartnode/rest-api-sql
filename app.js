@@ -18,7 +18,12 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 (async ()=>{
-  sequelize.authenticate();
+  try{
+    sequelize.authenticate();
+    console.log('Connect to Database successfully.');
+  } catch (error){
+    console.error('Failed to connect to the Database: ',error);
+  }
 })();
 
 // setup a friendly greeting for the root route
