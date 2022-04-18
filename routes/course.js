@@ -7,7 +7,7 @@ const router = express.Router();
 // Returns all courses including the users associated with each courses
 router.get('/', asyncHandler(async (req, res)=>{
     //Get course with exceed of removing createdAt and updatedAt from the result
-    const courses = await Course.findAll({include: User, attributes:{exclude:['createdAt','updatedAt']}});
+    const courses = await Course.findAll({include: [{model:User, attributes: {exclude:['createdAt','updatedAt']}}], attributes:{exclude:['createdAt','updatedAt']}});
     
     //Get plain of courses
     const formatedCourse = courses.map(course=>course.get({plain:true}));
@@ -75,7 +75,7 @@ router.delete("/:id", authenticateUser, asyncHandler(async (req,res)=>{
 
 router.get('/:id',asyncHandler(async (req,res)=>{
     // Get course by ID
-    const course = await Course.findByPk(req.params.id,{include: User});
+    const course = await Course.findByPk(req.params.id,{attributes:{ exclude: ['createdAt','updatedAt',] },include: [{model:User, attributes:{exclude:['createdAt','updatedAt',]}}]});
     res.status(200).json(course);
 }))
 
