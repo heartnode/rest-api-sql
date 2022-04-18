@@ -4,5 +4,5 @@ This project uses Node.js, Express, Sequelize, bcryptjs and basic-auth. It imple
 To run:
 
 1. npm install
-2. npm seed
+2. npm run seed
 3. npm start
